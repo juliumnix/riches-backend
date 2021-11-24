@@ -21,10 +21,6 @@ class UserController {
   async store(request, response) {
     const { nome, email, senha } = request.body;
 
-    // if (!nome) {
-    //   return response.status(400).json({ error: "Name is required" });
-    // }
-
     const contactExists = await UsersRespository.findByEmail(email);
 
     if (contactExists) {
@@ -57,7 +53,6 @@ class UserController {
     }
 
     // const contactByEmail = await UsersRespository.findByEmail(email);
-
     // if (contactByEmail && contactByEmail.id !== id) {
     //   return response
     //     .status(400)
