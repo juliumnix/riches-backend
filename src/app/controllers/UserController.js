@@ -74,7 +74,7 @@ class UserController {
   }
 
   async login(request, response) {
-    const { email, senha } = request.params;
+    const { email, senha } = request.body;
 
     const user = await UsersRespository.findByEmail(email);
 
@@ -86,7 +86,7 @@ class UserController {
       return response.status(400).json({ error: "Invalid password" });
     }
 
-    response.json(user);
+    response.json(user.id_usuario);
   }
 }
 
