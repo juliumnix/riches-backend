@@ -72,6 +72,22 @@ class UserController {
     await UsersRespository.delete(id);
     response.sendStatus(204);
   }
+
+  async login(request, response) {
+    const { email, senha } = request.params;
+
+    const user = await UsersRespository.findByEmail(email);
+
+    if (!user) {
+      return response.status(400).json({ error: "User not found" });
+    }
+
+    if (user.senha !== senha) {
+      return response.status(400).json({ error: "Invalid password" });
+    }
+
+    response.json(user);
+  }
 }
 
 module.exports = new UserController();
