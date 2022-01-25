@@ -55,6 +55,19 @@ class UsersRespository {
 
     return row;
   }
+
+  async updateSaldo(id, { saldo }) {
+    const [row] = await db.query(
+      `UPDATE usuarios 
+      SET saldo = $1
+      WHERE id_usuario = $2
+      RETURNING *
+      `,
+      [saldo, id]
+    );
+
+    return row;
+  }
 }
 
 module.exports = new UsersRespository();

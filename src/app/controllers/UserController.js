@@ -30,7 +30,7 @@ class UserController {
     }
 
     const contact = await UsersRespository.create({
-      nome,
+      nome: "",
       email,
       senha,
     });
@@ -61,6 +61,34 @@ class UserController {
 
     const contact = await UsersRespository.update(id, {
       nome,
+    });
+
+    response.json(contact);
+  }
+
+  async updateSaldo(request, response) {
+    const { id } = request.params;
+    const { saldo } = request.body;
+
+    const contactExists = await UsersRespository.findById(id);
+
+    if (!contactExists) {
+      return response.status(404).json({ error: "User not found" });
+    }
+
+    // if (!nome) {
+    //   return response.status(400).json({ error: "Name is required" });
+    // }
+
+    // const contactByEmail = await UsersRespository.findByEmail(email);
+    // if (contactByEmail && contactByEmail.id !== id) {
+    //   return response
+    //     .status(400)
+    //     .json({ error: "This e-mail is already been use" });
+    // }
+
+    const contact = await UsersRespository.updateSaldo(id, {
+      saldo,
     });
 
     response.json(contact);
